@@ -1,0 +1,75 @@
+﻿@model PagedList<DeshUnivealsal.Models.DTOs.CityDTO>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "City Index";
+}
+
+<h2 class="alert alert-info">City</h2>
+
+<form method="get">
+    <div class="d-flex justify-content-end mb-3">
+        <!-- Hidden label for accessibility -->
+        <label for="filterColumn" class="sr-only me-3">Filter By:</label>
+
+        <!-- Filter dropdown -->
+        <div class="me-2">
+            <select name="filterColumn" id="filterColumn" class="form-select">
+                <option value="name" @(Request["filterColumn"] == "name" ? "selected" : "")>Name</option>
+                <option value="country" @(Request["filterColumn"] == "country" ? "selected" : "")>Country</option>
+            </select>
+        </div>
+
+        <!-- Input field -->
+        <div class="me-2">
+            <input type="text" name="filterQuery" value="@Request["filterQuery"]" class="form-control" placeholder="Search..." />
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary me-2">Filter</button>
+
+        <!-- Add button with margin on the left -->
+        <a href="@Url.Action("Create", "Cities")" class="btn btn-primary">Add</a>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="name" asp-route-sortOrder="@(Request["sortColumn"] == "name" && Request["sortOrder"] == "asc" ? "desc" : "asc")">
+                    City Name @(Request["sortColumn"] == "name" ? (Request["sortOrder"] == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="country" asp-route-sortOrder="@(Request["sortColumn"] == "country" && Request["sortOrder"] == "asc" ? "desc" : "asc")">
+                    Country @(Request["sortColumn"] == "country" ? (Request["sortOrder"] == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.CountryName</td>
+                <td>@item.Lat</td>
+                <td>@item.Lon</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-outline-secondary">Details</a>
+                    <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-outline-secondary">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination controls -->
+<div class="d-flex justify-content-end">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>

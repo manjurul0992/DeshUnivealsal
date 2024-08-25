@@ -1,0 +1,807 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CombineGiftModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoleClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedUserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="NormalizedEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserTokens">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Candidates">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="PhoneNo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Picture" Type="nvarchar(max)" />
+          <Property Name="Fresher" Type="bit" />
+        </EntityType>
+        <EntityType Name="CandidateSkills">
+          <Key>
+            <PropertyRef Name="CandidateSkillId" />
+          </Key>
+          <Property Name="CandidateSkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId" Type="int" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="Lat" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="Lon" Type="decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="CountryId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ISO2" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="ISO3" Type="nvarchar" MaxLength="450" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogEvents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="MessageTemplate" Type="nvarchar(max)" />
+          <Property Name="Level" Type="nvarchar(max)" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="Exception" Type="nvarchar(max)" />
+          <Property Name="Properties" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRoleClaims">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserTokens" Type="Self.AspNetUserTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserTokens">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateSkills_Candidates_CandidateId">
+          <End Role="Candidates" Type="Self.Candidates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CandidateSkills" Type="Self.CandidateSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidates">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateSkills">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateSkills_Skills_SkillId">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CandidateSkills" Type="Self.CandidateSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="CandidateSkills">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cities_Countries_CountryId">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cities" Type="Self.Cities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cities">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CombineGiftModelStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Candidates" EntityType="Self.Candidates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateSkills" EntityType="Self.CandidateSkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogEvents" EntityType="Self.LogEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateSkills_Candidates_CandidateId" Association="Self.FK_CandidateSkills_Candidates_CandidateId">
+            <End Role="Candidates" EntitySet="Candidates" />
+            <End Role="CandidateSkills" EntitySet="CandidateSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateSkills_Skills_SkillId" Association="Self.FK_CandidateSkills_Skills_SkillId">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="CandidateSkills" EntitySet="CandidateSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cities_Countries_CountryId" Association="Self.FK_Cities_Countries_CountryId">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CombineGiftModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoleClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRole" Relationship="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoleClaims" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetRoleClaims" Relationship="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoles" ToRole="AspNetRoleClaims" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="NormalizedEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetUserTokens" Relationship="Self.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserTokens" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="AspNetUserToken">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUserTokens" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Candidate">
+          <Key>
+            <PropertyRef Name="CandidateId" />
+          </Key>
+          <Property Name="CandidateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Fresher" Type="Boolean" />
+          <NavigationProperty Name="CandidateSkills" Relationship="Self.FK_CandidateSkills_Candidates_CandidateId" FromRole="Candidates" ToRole="CandidateSkills" />
+        </EntityType>
+        <EntityType Name="CandidateSkill">
+          <Key>
+            <PropertyRef Name="CandidateSkillId" />
+          </Key>
+          <Property Name="CandidateSkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId" Type="Int32" Nullable="false" />
+          <Property Name="SkillId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Candidate" Relationship="Self.FK_CandidateSkills_Candidates_CandidateId" FromRole="CandidateSkills" ToRole="Candidates" />
+          <NavigationProperty Name="Skill" Relationship="Self.FK_CandidateSkills_Skills_SkillId" FromRole="CandidateSkills" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lat" Type="Decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="Lon" Type="Decimal" Precision="7" Scale="4" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_Cities_Countries_CountryId" FromRole="Cities" ToRole="Countries" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ISO2" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ISO3" Type="String" MaxLength="450" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_Cities_Countries_CountryId" FromRole="Countries" ToRole="Cities" />
+        </EntityType>
+        <EntityType Name="LogEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MessageTemplate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Properties" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="SkillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CandidateSkills" Relationship="Self.FK_CandidateSkills_Skills_SkillId" FromRole="Skills" ToRole="CandidateSkills" />
+        </EntityType>
+        <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetRoleClaims">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserTokens" Type="Self.AspNetUserToken" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserTokens">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateSkills_Candidates_CandidateId">
+          <End Role="Candidates" Type="Self.Candidate" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CandidateSkills" Type="Self.CandidateSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidates">
+              <PropertyRef Name="CandidateId" />
+            </Principal>
+            <Dependent Role="CandidateSkills">
+              <PropertyRef Name="CandidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateSkills_Skills_SkillId">
+          <End Role="Skills" Type="Self.Skill" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CandidateSkills" Type="Self.CandidateSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="SkillId" />
+            </Principal>
+            <Dependent Role="CandidateSkills">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cities_Countries_CountryId">
+          <End Role="Countries" Type="Self.Country" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cities" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cities">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CombineGiftEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
+          <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaim" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserToken" />
+          <EntitySet Name="Candidates" EntityType="Self.Candidate" />
+          <EntitySet Name="CandidateSkills" EntityType="Self.CandidateSkill" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="LogEvents" EntityType="Self.LogEvent" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateSkills_Candidates_CandidateId" Association="Self.FK_CandidateSkills_Candidates_CandidateId">
+            <End Role="Candidates" EntitySet="Candidates" />
+            <End Role="CandidateSkills" EntitySet="CandidateSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateSkills_Skills_SkillId" Association="Self.FK_CandidateSkills_Skills_SkillId">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="CandidateSkills" EntitySet="CandidateSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cities_Countries_CountryId" Association="Self.FK_Cities_Countries_CountryId">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Cities" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CombineGiftModelStoreContainer" CdmEntityContainer="CombineGiftEntities">
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="CombineGiftModel.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoleClaims">
+            <EntityTypeMapping TypeName="CombineGiftModel.AspNetRoleClaim">
+              <MappingFragment StoreEntitySet="AspNetRoleClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="CombineGiftModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NormalizedName" ColumnName="NormalizedName" />
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="CombineGiftModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="CombineGiftModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="ProviderDisplayName" ColumnName="ProviderDisplayName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="CombineGiftModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="NormalizedUserName" ColumnName="NormalizedUserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NormalizedEmail" ColumnName="NormalizedEmail" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="ConcurrencyStamp" ColumnName="ConcurrencyStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserTokens">
+            <EntityTypeMapping TypeName="CombineGiftModel.AspNetUserToken">
+              <MappingFragment StoreEntitySet="AspNetUserTokens">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Candidates">
+            <EntityTypeMapping TypeName="CombineGiftModel.Candidate">
+              <MappingFragment StoreEntitySet="Candidates">
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Fresher" ColumnName="Fresher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateSkills">
+            <EntityTypeMapping TypeName="CombineGiftModel.CandidateSkill">
+              <MappingFragment StoreEntitySet="CandidateSkills">
+                <ScalarProperty Name="CandidateSkillId" ColumnName="CandidateSkillId" />
+                <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="CombineGiftModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="CombineGiftModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ISO2" ColumnName="ISO2" />
+                <ScalarProperty Name="ISO3" ColumnName="ISO3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogEvents">
+            <EntityTypeMapping TypeName="CombineGiftModel.LogEvent">
+              <MappingFragment StoreEntitySet="LogEvents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MessageTemplate" ColumnName="MessageTemplate" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="Properties" ColumnName="Properties" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="CombineGiftModel.Skill">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="SkillId" ColumnName="SkillId" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="CombineGiftModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

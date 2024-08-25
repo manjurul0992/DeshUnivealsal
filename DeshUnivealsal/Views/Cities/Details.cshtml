@@ -1,0 +1,35 @@
+﻿@model DeshUnivealsal.Models.DTOs.CityDTO
+
+@{
+    ViewBag.Title = "City Details";
+}
+
+<h2 class="alert alert-info">City Details</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>Name:</dt>
+                <dd>@Model.Name</dd>
+
+                <dt>Latitude:</dt>
+                <dd>@Model.Lat</dd>
+
+                <dt>Longitude:</dt>
+                <dd>@Model.Lon</dd>
+
+                <dt>Country Name:</dt>
+                <dd>@Model.CountryName</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("Index")" class="btn btn-primary">Back to List</a>
+            <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn btn-secondary">Edit</a>
+            <a href="@Url.Action("Delete", new { id = Model.Id })" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>

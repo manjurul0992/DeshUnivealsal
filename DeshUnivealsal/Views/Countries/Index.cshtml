@@ -1,0 +1,89 @@
+﻿@model IPagedList<DeshUnivealsal.Models.DTOs.CountryDTO>
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Countries";
+}
+
+<h2 class="alert alert-info">Countries</h2>
+
+<form method="get">
+    
+
+    
+    <div class="d-flex justify-content-end mb-3">
+        <!-- Hidden label for accessibility -->
+        <label for="filterColumn" class="sr-only me-3">Filter By:</label>
+
+        <!-- Filter dropdown -->
+        <div class="me-2">
+            <select name="filterColumn" id="filterColumn" class="form-select">
+                <option value="name" @(Request["filterColumn"] == "name" ? "selected" : "")>Name</option>
+                <option value="iso2" @(Request["filterColumn"] == "iso2" ? "selected" : "")>ISO2</option>
+                <option value="iso3" @(Request["filterColumn"] == "iso3" ? "selected" : "")>ISO3</option>
+            </select>
+        </div>
+
+        <!-- Input field -->
+        <div class="me-2">
+            <input type="text" name="filterQuery" value="@Request["filterQuery"]" class="form-control" placeholder="Search..." />
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary me-2">Filter</button>
+
+        <!-- Add button with margin on the left -->
+        <a href="@Url.Action("Create", "Countries")" class="btn btn-primary">Add</a>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="name" asp-route-sortOrder="@(Request["sortColumn"] == "name" && Request["sortOrder"] == "asc" ? "desc" : "asc")">
+                    Name @(Request["sortColumn"] == "name" ? (Request["sortOrder"] == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="iso2" asp-route-sortOrder="@(Request["sortColumn"] == "iso2" && Request["sortOrder"] == "asc" ? "desc" : "asc")">
+                    ISO2 @(Request["sortColumn"] == "iso2" ? (Request["sortOrder"] == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortColumn="iso3" asp-route-sortOrder="@(Request["sortColumn"] == "iso3" && Request["sortOrder"] == "asc" ? "desc" : "asc")">
+                    ISO3 @(Request["sortColumn"] == "iso3" ? (Request["sortOrder"] == "asc" ? "▲" : "▼") : "")
+                </a>
+            </th>
+            <th>
+                Total Cities
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ISO2</td>
+                <td>@item.ISO3</td>
+                <td>@item.TotCities</td>
+                <td>
+                    <a href="@Url.Action("Details", new { id=item.Id})" class="btn btn-outline-secondary">Details</a>
+                    <a href="@Url.Action("Edit", new { id=item.Id})" class="btn btn-outline-secondary">Edit</a>
+                    <a href="@Url.Action("Delete", new { id=item.Id})" class="btn btn-outline-danger">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination controls -->
+<div class="d-flex justify-content-end">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
