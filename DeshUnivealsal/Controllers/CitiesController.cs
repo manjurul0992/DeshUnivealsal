@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using PagedList;
 using System.Net;
 using System.Linq.Expressions;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 
 namespace DeshUnivealsal.Controllers
@@ -130,24 +132,35 @@ namespace DeshUnivealsal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var city = new City
+                // Check for duplicate city name
+                if (IsDupeCity(0, "Name", cityDto.Name))
                 {
-                    Name = cityDto.Name,
-                    Lat = cityDto.Lat,
-                    Lon = cityDto.Lon,
-                    CountryId = cityDto.CountryId
-                };
+                    ModelState.AddModelError("Name", "A city with this name already exists.");
+                }
+                else
+                {
+                    var city = new City
+                    {
+                        Name = cityDto.Name,
+                        Lat = cityDto.Lat,
+                        Lon = cityDto.Lon,
+                        CountryId = cityDto.CountryId
+                    };
 
-                _context.Cities.Add(city);
-                await _context.SaveChangesAsync();
+                    _context.Cities.Add(city);
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
             }
 
             // Reload countries in case of validation errors
             ViewBag.Countries = new SelectList(_context.Countries, "Id", "Name", cityDto.CountryId);
             return View(cityDto);
         }
+
+
+
 
 
         // GET: Cities/Edit/5
@@ -192,21 +205,30 @@ namespace DeshUnivealsal.Controllers
                     return HttpNotFound();
                 }
 
-                city.Name = cityDTO.Name;
-                city.Lat = cityDTO.Lat;
-                city.Lon = cityDTO.Lon;
-                city.CountryId = cityDTO.CountryId;
+                // Check for duplicate city name, excluding the current city ID
+                if (IsDupeCity(cityDTO.Id, "Name", cityDTO.Name))
+                {
+                    ModelState.AddModelError("Name", "A city with this name already exists.");
+                }
+                else
+                {
+                    city.Name = cityDTO.Name;
+                    city.Lat = cityDTO.Lat;
+                    city.Lon = cityDTO.Lon;
+                    city.CountryId = cityDTO.CountryId;
 
-                _context.Entry(city).State = System.Data.Entity.EntityState.Modified;
-                await _context.SaveChangesAsync();
+                    _context.Entry(city).State = System.Data.Entity.EntityState.Modified;
+                    await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
             }
 
             // Reload countries in case of validation errors
             ViewBag.Countries = new SelectList(_context.Countries, "Id", "Name", cityDTO.CountryId);
             return View(cityDTO);
         }
+
 
 
         // GET: Cities/Delete/5
@@ -294,6 +316,31 @@ namespace DeshUnivealsal.Controllers
 
             // Execute the query
             return _context.Cities.Any(lambda);
+        }
+
+        public ActionResult Download_PDF()
+        {
+            CombineGiftEntities context = new CombineGiftEntities();
+            var query = _context.Cities.AsNoTracking().Select(c => new CityDTO
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Lat = c.Lat,
+                Lon = c.Lon,
+                CountryName = c.Country.Name
+            });
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport2.rpt"));
+            rd.SetDataSource(query);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            rd.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape;
+            rd.PrintOptions.ApplyPageMargins(new CrystalDecisions.Shared.PageMargins(5, 5, 5, 5));
+            rd.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA5;
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", "CityCountry.pdf");
         }
 
     }

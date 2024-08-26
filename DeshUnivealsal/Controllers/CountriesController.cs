@@ -1,8 +1,10 @@
-﻿using DeshUnivealsal.Models.DTOs;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using DeshUnivealsal.Models.DTOs;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
@@ -23,12 +25,7 @@ namespace DeshUnivealsal.Controllers
         }
 
         // GET: Countries
-        public async Task<ActionResult> Index(
-     string sortColumn = null,
-     string sortOrder = null,
-     string filterColumn = null,
-     string filterQuery = null,
-     int page = 1)
+        public async Task<ActionResult> Index(string sortColumn = null,string sortOrder = null,string filterColumn = null,string filterQuery = null,int page = 1)
         {
             // Fetch data
             var query = _context.Countries.AsNoTracking().Select(c => new CountryDTO
@@ -141,6 +138,12 @@ namespace DeshUnivealsal.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (IsDupeField(0, "ISO2", countryDto.ISO2) || IsDupeField(0, "ISO3", countryDto.ISO3))
+                {
+                    ModelState.AddModelError("", "A country with the same ISO2 or ISO3 already exists.");
+                    return View(countryDto);
+                }
+
                 var country = new Country
                 {
                     Name = countryDto.Name,
@@ -199,11 +202,17 @@ namespace DeshUnivealsal.Controllers
                     return HttpNotFound();
                 }
 
+                if (IsDupeField(countryDTO.Id, "ISO2", countryDTO.ISO2) || IsDupeField(countryDTO.Id, "ISO3", countryDTO.ISO3))
+                {
+                    ModelState.AddModelError("", "A country with the same ISO2 or ISO3 already exists.");
+                    return View(countryDTO);
+                }
+
                 country.Name = countryDTO.Name;
                 country.ISO2 = countryDTO.ISO2;
                 country.ISO3 = countryDTO.ISO3;
 
-                _context.Entry(country).State = System.Data.Entity.EntityState.Modified;
+                _context.Entry(country).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index");
@@ -267,10 +276,21 @@ namespace DeshUnivealsal.Controllers
                 return false; // Invalid property name
             }
 
+            // Convert fieldValue to the appropriate type
+            object convertedValue;
+            try
+            {
+                convertedValue = Convert.ChangeType(fieldValue, property.PropertyType);
+            }
+            catch
+            {
+                return false; // Conversion failed
+            }
+
             // Use LINQ to dynamically build the query
             var parameter = Expression.Parameter(typeof(Country), "c");
             var member = Expression.Property(parameter, property.Name);
-            var constant = Expression.Constant(fieldValue);
+            var constant = Expression.Constant(convertedValue);
             var body = Expression.Equal(member, constant);
 
             // Add a condition to exclude the current country ID
@@ -284,6 +304,34 @@ namespace DeshUnivealsal.Controllers
 
             // Execute the query
             return _context.Countries.Any(lambda);
+        }
+
+
+
+        public ActionResult Download_PDF()
+        {
+            CombineGiftEntities context = new CombineGiftEntities();
+            var countries = context.Countries
+        .Select(c => new CountryDTO
+        {
+            Id = c.Id,
+            Name = c.Name,
+            ISO2 = c.ISO2,
+            ISO3 = c.ISO3,
+            TotCities = c.Cities.Count()
+        }).ToList();
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport1.rpt"));
+            rd.SetDataSource(countries);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            rd.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape;
+            rd.PrintOptions.ApplyPageMargins(new CrystalDecisions.Shared.PageMargins(5, 5, 5, 5));
+            rd.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA5;
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+            return File(stream, "application/pdf", "Countrycity.pdf");
         }
 
     }
